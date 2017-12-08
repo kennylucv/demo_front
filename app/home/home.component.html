@@ -1,0 +1,67 @@
+﻿<div class="col-md-6 col-md-offset-3">
+    <h1>Hi {{currentUser}}!</h1>
+
+    <div *ngIf="numberAccounts != 0"> 
+        <h3>Your Accounts:</h3>
+
+        <table class="table table-striped" [mfData]="accountData" #mfAccounts="mfDataTable" [mfRowsOnPage]="5">
+            <thead>
+            <tr>
+                <th style="width: 50%">
+                    <mfDefaultSorter by="accountType">Account Type</mfDefaultSorter>
+                </th>
+                <th style="width: 50%">
+                    <mfDefaultSorter by="balance">Balance</mfDefaultSorter>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let account of mfAccounts.data">
+                <td>{{account.type}}</td>
+                <td>{{account.amount}}</td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+    
+    <div *ngIf="numberAccounts == 0"> <h3>You have no accounts:</h3> </div>
+
+    <div *ngIf="showBulletin">  
+        <h3>News Bulletin:</h3>
+        <table class="table table-striped" [mfData]="newsData" #mfNews="mfDataTable" [mfRowsOnPage]="5">
+            <thead>
+            <tr>
+                <th style="width: 30%">
+                    <mfDefaultSorter by="image"></mfDefaultSorter>
+                </th>
+                <th style="width: 70%">
+                    <mfDefaultSorter by="headline"></mfDefaultSorter>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let item of mfNews.data">
+                <td> <img src="{{item.urlToImage}}" width="100"> </td>
+                <td> <a href="{{item.url}}">{{item.title}}</a> </td>
+            </tr>
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="2">
+                    <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+                </td>
+            </tr>
+            </tfoot>
+        </table>
+    </div> 
+
+
+    <p><a [routerLink]="['/login']">Logout</a></p>
+</div>
